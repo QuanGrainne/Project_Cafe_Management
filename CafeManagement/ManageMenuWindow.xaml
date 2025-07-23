@@ -1,0 +1,66 @@
+﻿<Window x:Class="CafeManagement.ManageMenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CafeManagement"
+        mc:Ignorable="d"
+        Title="Quản lý thực đơn" Height="500" Width="700"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Form nhập -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <!-- Tên món -->
+            <StackPanel Margin="5" Width="150">
+                <TextBlock Text="Tên món" Margin="0,0,0,3" Foreground="#555"/>
+                <TextBox x:Name="txtName" Height="30"/>
+            </StackPanel>
+
+            <!-- Giá -->
+            <StackPanel Margin="5" Width="100">
+                <TextBlock Text="Giá (VNĐ)" Margin="0,0,0,3" Foreground="#555"/>
+                <TextBox x:Name="txtPrice" Height="30"/>
+            </StackPanel>
+
+            <!-- Mô tả -->
+            <StackPanel Margin="5" Width="200">
+                <TextBlock Text="Mô tả" Margin="0,0,0,3" Foreground="#555"/>
+                <TextBox x:Name="txtDescription" Height="30"/>
+            </StackPanel>
+
+            <!-- Trạng thái -->
+            <StackPanel Margin="5" Width="80">
+                <TextBlock Text="Còn bán?" Margin="0,0,0,3" Foreground="#555"/>
+                <CheckBox x:Name="chkAvailable" Content="Còn bán" IsChecked="True" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Danh sách -->
+        <DataGrid x:Name="dgMenu" Grid.Row="1" AutoGenerateColumns="False"
+              SelectionChanged="dgMenu_SelectionChanged"
+              CanUserAddRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ItemId}" Width="50"/>
+                <DataGridTextColumn Header="Tên món" Binding="{Binding ItemName}" Width="150"/>
+                <DataGridTextColumn Header="Giá" Binding="{Binding Price}" Width="100"/>
+                <DataGridTextColumn Header="Mô tả" Binding="{Binding Description}" Width="200"/>
+                <DataGridCheckBoxColumn Header="Còn bán" Binding="{Binding IsAvailable}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Nút điều khiển -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Thêm" Click="Add_Click" Background="#28a745" Foreground="White" Margin="5" Width="80"/>
+            <Button Content="Sửa" Click="Update_Click" Background="#ffc107" Foreground="Black" Margin="5" Width="80"/>
+            <Button Content="Xóa" Click="Delete_Click" Background="#dc3545" Foreground="White" Margin="5" Width="80"/>
+            <Button Content="Reset" Click="Reset_Click" Background="#6c757d" Foreground="White" Margin="5" Width="80"/>
+        </StackPanel>
+    </Grid>
+</Window>

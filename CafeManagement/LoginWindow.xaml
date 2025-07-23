@@ -1,0 +1,69 @@
+﻿<Window x:Class="CafeManagement.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CafeManagement"
+        mc:Ignorable="d"
+        Title="Đăng nhập hệ thống" Height="429" Width="451"
+        WindowStartupLocation="CenterScreen" Background="#F7F7F7" ResizeMode="NoResize">
+
+    <Border Margin="20" CornerRadius="10" Background="White" Padding="20" BorderBrush="#FFCCCCCC" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Logo -->
+            <Image Grid.Row="0" Height="80" Margin="0,0,0,10"
+                   Source="Images/logo.png" HorizontalAlignment="Center"/>
+
+            <!-- Tiêu đề -->
+            <TextBlock Text="ĐĂNG NHẬP" FontSize="20" FontWeight="Bold"
+                       Foreground="#333" HorizontalAlignment="Center" Margin="0,0,0,15" Grid.Row="1"/>
+
+            <!-- Tài khoản -->
+            <StackPanel Grid.Row="2" Margin="0,0,0,10">
+                <TextBlock Text="Tài khoản" Margin="5,0,0,3" Foreground="#555"/>
+                <TextBox x:Name="txtUsername" Height="35" FontSize="14" Padding="5"
+                         Background="#FFF" BorderBrush="#AAA" BorderThickness="1" />
+            </StackPanel>
+
+            <!-- Mật khẩu (ẩn/hiện) -->
+            <StackPanel Grid.Row="3" Margin="0,0,0,15">
+                <TextBlock Text="Mật khẩu" Margin="5,0,0,3" Foreground="#555"/>
+
+                <Grid>
+                    <!-- PasswordBox (mặc định) -->
+                    <PasswordBox x:Name="pwdPassword" Height="35" FontSize="14" Padding="5"
+                                 Background="#FFF" BorderBrush="#AAA" BorderThickness="1" />
+
+                    <!-- TextBox (hiển thị khi show password) -->
+                    <TextBox x:Name="txtPasswordVisible" Visibility="Collapsed" Height="35" FontSize="14" Padding="5"
+                             Background="#FFF" BorderBrush="#AAA" BorderThickness="1" />
+
+                    <!-- Nút show/hide -->
+                    <Button Content="👁" Width="35" Height="35" HorizontalAlignment="Right"
+                            Background="Transparent" BorderThickness="0" Click="TogglePasswordVisibility_Click"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Nút đăng nhập -->
+            <Button Content="Đăng nhập"
+                    Grid.Row="4"
+                    Height="40"
+                    FontSize="15"
+                    Background="#007ACC"
+                    Foreground="White"
+                    BorderBrush="#007ACC"
+                    Cursor="Hand"
+                    Click="Login_Click"
+                    HorizontalAlignment="Stretch"
+                    Margin="0,10,0,0"/>
+        </Grid>
+    </Border>
+</Window>
