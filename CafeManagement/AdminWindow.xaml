@@ -29,7 +29,7 @@
                     Height="45" FontSize="16" Margin="0,0,0,10"
                     Background="#FFC107" Foreground="Black" BorderBrush="#FFC107"/>
 
-            <Button Content="Quản lý người dùng" Click="BtnManageUsers_Click"
+            <Button Content="Quản lý nhân viên" Click="BtnManageUsers_Click"
                     Height="45" FontSize="16" Margin="0,0,0,10"
                     Background="AntiqueWhite" Foreground="Black" BorderBrush="#FFC107"/>
 
