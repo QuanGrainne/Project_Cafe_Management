@@ -41,7 +41,7 @@ namespace CafeManagement
             txtFullName.Text = "";
             cbRole.SelectedIndex = 0;
 
-            txtUsername.IsEnabled = true; // ✅ Cho phép nhập lại username
+            txtUsername.IsEnabled = true;
             cbRole.IsEnabled = true;
 
             selectedUser = null;
@@ -82,7 +82,8 @@ namespace CafeManagement
                 Username = username,
                 Password = password,
                 FullName = fullName,
-                Role = "Staff" // luôn là Staff khi thêm
+                Role = "Staff",
+                Status = "Active"
             };
 
             context.Users.Add(user);
@@ -142,27 +143,32 @@ namespace CafeManagement
             MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void ToggleLock_Click(object sender, RoutedEventArgs e)
         {
             if (selectedUser == null)
             {
-                MessageBox.Show("Vui lòng chọn người dùng để xóa.");
+                MessageBox.Show("Vui lòng chọn người dùng để khóa/mở.");
                 return;
             }
 
             if (selectedUser.Role == "Admin")
             {
-                MessageBox.Show("Không thể xóa tài khoản Admin!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Không thể khóa tài khoản Admin!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            var result = MessageBox.Show($"Bạn có chắc chắn muốn xóa tài khoản '{selectedUser.Username}'?", "Xác nhận", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
+            string newStatus = selectedUser.Status == "Active" ? "Locked" : "Active";
+            string action = newStatus == "Locked" ? "khóa" : "mở khóa";
+
+            var confirm = MessageBox.Show($"Bạn có chắc chắn muốn {action} tài khoản '{selectedUser.Username}'?", "Xác nhận", MessageBoxButton.YesNo);
+            if (confirm == MessageBoxResult.Yes)
             {
-                context.Users.Remove(selectedUser);
+                selectedUser.Status = newStatus;
                 context.SaveChanges();
                 LoadUsers();
                 ClearForm();
+
+                MessageBox.Show($"Tài khoản đã được {action}.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -177,7 +183,7 @@ namespace CafeManagement
             if (selectedUser != null)
             {
                 txtUsername.Text = selectedUser.Username;
-                txtUsername.IsEnabled = false; // 🔒 KHÓA username
+                txtUsername.IsEnabled = false;
 
                 txtPassword.Text = selectedUser.Password;
                 txtFullName.Text = selectedUser.FullName;
@@ -185,7 +191,7 @@ namespace CafeManagement
                 cbRole.SelectedItem = cbRole.Items.Cast<ComboBoxItem>()
                     .FirstOrDefault(i => i.Content.ToString() == selectedUser.Role);
 
-                cbRole.IsEnabled = selectedUser.Role != "Admin"; // khóa role nếu là admin
+                cbRole.IsEnabled = selectedUser.Role != "Admin";
             }
         }
     }

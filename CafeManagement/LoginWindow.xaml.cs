@@ -66,18 +66,23 @@ namespace CafeManagement
 
                 if (user != null)
                 {
+                    if (user.Status == "Locked")
+                    {
+                        MessageBox.Show("Tài khoản này đã bị khóa. Vui lòng liên hệ quản trị viên.", "Tài khoản bị khóa", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     MessageBox.Show($"Xin chào {user.FullName} ({user.Role})", "Đăng nhập thành công");
 
                     if (user.Role.ToLower() == "admin")
                     {
                         var adminWindow = new AdminWindow(user);
                         adminWindow.Show();
-                    } else
-                    if (user.Role == "Staff")
+                    }
+                    else if (user.Role == "Staff")
                     {
                         StaffWindow staffWindow = new StaffWindow(user);
                         staffWindow.Show();
-                        this.Close();
                     }
                     else
                     {
@@ -93,5 +98,6 @@ namespace CafeManagement
                 }
             }
         }
+
     }
 }
